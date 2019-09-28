@@ -3,7 +3,7 @@ include ("includes/head.php");
 include ("utility/utility.php");
 ?>
 
-Welcome on the home page
+Welcome on the inbox page
 
 <?php
 

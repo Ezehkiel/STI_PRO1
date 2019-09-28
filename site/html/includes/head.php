@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -10,5 +9,22 @@ session_start();
     <title>WebMessenger</title>
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <link rel="stylesheet" href="style/css/bootstrap.css">
+    <link rel="stylesheet" href="style/css/bootstrap-grid.css">
+    <link rel="stylesheet" href="style/css/bootstrap-reboot.css">
+    <link rel="stylesheet" href="style/css/style.css">
+
 </head>
 <body>
+<div class="wrapper">
+<?php
+include ("menu.php");
+?>
+<div id="content">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+
+
+
+
+

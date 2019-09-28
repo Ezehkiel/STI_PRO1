@@ -20,6 +20,16 @@ function db_connect(){
  * USERS REQUESTS
  */
 
+function getId($username){
+    static $req = null;
+    if($req == null) {
+        $req = db_connect()->prepare('SELECT id from users WHERE username = ?');
+    }
+    $req->execute(array($username));
+    $data = $req->fetch(PDO::FETCH_ASSOC);
+    return $data['id'];
+}
+
 function checkLogin($username, $password){
     static $req = null;
     if($req == null) {
@@ -28,6 +38,18 @@ function checkLogin($username, $password){
     $req->execute(array($username));
     $data = $req->fetch(PDO::FETCH_ASSOC);
     return $data['password'] == $password;
+}
+
+function isAdmin($id){
+
+    static $req = null;
+    if($req == null){
+        $req = db_connect()->prepare('SELECT role FROM users WHERE id = ?');
+    }
+    $req->execute(array($id));
+    $data = $req->fetch(PDO::FETCH_ASSOC);
+    return $data['role'] == "admin";
+
 }
 
 /**
