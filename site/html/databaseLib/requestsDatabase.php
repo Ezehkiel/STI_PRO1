@@ -94,8 +94,7 @@ function addUser($login, $password, $rule) {
     try {
         $req->execute(array($login, $password, $rule, 1));
     } catch(Exception $e) {
-        //return false;
-        echo $e->getMessage();
+        return false;
     }
 
     return true;
