@@ -5,7 +5,7 @@ function db_connect(){
 
     if ($myDb === null) {
         try {
-            $myDB = new PDO('sqlite:/usr/share/nginx/databases/database.sqlite');
+            $myDB = new PDO('sqlite:/usr/share/nginx/databases/sti_project1');
             $myDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (Exception $e) {
             die("Impossible d'ouvrir la base de donnée: " . $e->getMessage());
