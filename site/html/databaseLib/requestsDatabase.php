@@ -20,6 +20,20 @@ function db_connect(){
  * USERS REQUESTS
  */
 
+
+function getAllUsers(){
+
+    static $req = null;
+    if ($req == null) {
+        $req = db_connect()->query(
+            'SELECT * from users'
+        );
+    }
+
+    return $req->fetchAll(PDO::FETCH_ASSOC);
+
+}
+
 function getId($username){
     static $req = null;
     if($req == null) {
@@ -50,6 +64,24 @@ function isAdmin($id){
     $data = $req->fetch(PDO::FETCH_ASSOC);
     return $data['role'] == "admin";
 
+}
+
+function deleteUser($id){
+
+    static $req = null;
+    if ($req == null) {
+        $req = db_connect()->prepare(
+            'DELETE FROM users WHERE id = ? '
+        );
+    }
+
+    try {
+        $req->execute([$id]);
+    } catch (Exception $e) {
+        return false;
+    }
+
+    return true;
 }
 
 /**
