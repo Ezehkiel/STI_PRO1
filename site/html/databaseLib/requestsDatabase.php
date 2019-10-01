@@ -84,6 +84,23 @@ function deleteUser($id){
     return true;
 }
 
+function addUser($login, $password, $rule) {
+    static $req = null;
+
+    if($req == null) {
+        $req = db_connect()->prepare('INSERT INTO users (login, password, admin, validite) VALUES(?, ?, ?, ?)');
+    }
+    
+    try {
+        $req->execute(array($login, $password, $rule, 1));
+    } catch(Exception $e) {
+        //return false;
+        echo $e->getMessage();
+    }
+
+    return true;
+}
+
 /**
  * MESSAGE REQUESTS
  */

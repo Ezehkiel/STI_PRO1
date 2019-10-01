@@ -7,6 +7,9 @@ $users = getAllUsers();
 ?>
 
 <div class="container-fluid">
+    <form method="post" action="addUser.php">
+        <p><button type="submit" name="add_user" class="btn btn-primary">Add user</button></p>
+    </form>
     <div class="row">
 <!--        <form method="post">-->
             <table class="table table-striped">
@@ -22,9 +25,9 @@ $users = getAllUsers();
                 <?php
                 foreach ($users as $user) {
                     echo '<tr>';
-                    echo '<td>' . $user['username'] . '</td>';
-                    echo '<td>' . $user['role'] . '</td>';
-                    echo '<td><i class="fas fa-' . ($user['active'] ? 'check' : 'time') . '"></td>';
+                    echo '<td>' . $user['login'] . '</td>';
+                    echo '<td>' . $user['admin'] . '</td>';
+                    echo '<td><i class="fas fa-' . ($user['validite'] ? 'check' : 'time') . '"></td>';
                     echo '<td><a class="button button-action" href="./info_user.php?id=' . $user['id'] . '"><i class="fas fa-pen"></i></a>  <a class="button button-action" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-times"></i></a> </td>';
                     echo '<tr>';
                 }
