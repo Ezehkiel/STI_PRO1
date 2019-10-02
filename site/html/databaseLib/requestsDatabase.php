@@ -40,6 +40,16 @@ function getId($username){
     return $data['id_user'];
 }
 
+function getUsername($id){
+    static $req = null;
+    if($req == null) {
+        $req = db_connect()->prepare('SELECT login from users WHERE id_user = ?');
+    }
+    $req->execute(array($id));
+    $data = $req->fetch(PDO::FETCH_ASSOC);
+    return $data['login'];
+}
+
 function checkLogin($username, $password){
     static $req = null;
     if($req == null) {
@@ -88,14 +98,44 @@ function addMessage($senderId, $recipientId, $object, $message){
 
 }
 
+function getMessage($id){
+
+    static $req = null;
+    if($req == null) {
+        $req = db_connect()->prepare('SELECT * from messages WHERE id_message = ?');
+    }
+    $req->execute(array($id));
+    return $req->fetch(PDO::FETCH_ASSOC);
+
+}
+
 function fetchMessage($id){
 
     static $req = null;
     if($req == null){
-        $req = db_connect()->prepare('SELECT * FROM messages WHERE id_destinataire = ?');
+        $req = db_connect()->prepare('SELECT * FROM messages WHERE id_destinataire = ? ORDER BY date_reception DESC');
     }
     $req->execute(array($id));
     return $req->fetchAll(PDO::FETCH_ASSOC);
+
+}
+
+function deleteMessage($id){
+
+    static $req = null;
+    if ($req == null) {
+        $req = db_connect()->prepare(
+            'DELETE FROM messages WHERE id_message = ?'
+        );
+    }
+
+    try {
+        $req->execute([$id]);
+    } catch (Exception $e) {
+        return false;
+    }
+
+    return true;
 
 }
 ?>
