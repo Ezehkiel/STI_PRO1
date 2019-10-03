@@ -3,7 +3,7 @@ include ("includes/head.php");
 include ("utility/utility.php");
 include ("databaseLib/requestsDatabase.php");
 
-$users = getAllUsers();
+$users = getAllUsers(); //get all users in database
 ?>
 
 <div class="container-fluid">
@@ -23,12 +23,14 @@ $users = getAllUsers();
                 </thead>
                 <tbody>
                 <?php
+                // display all users
                 foreach ($users as $user) {
                     echo '<tr>';
                     echo '<td>' . $user['login'] . '</td>';
                     echo '<td>' . $user['admin'] . '</td>';
                     echo '<td><i class="fas fa-' . ($user['validite'] ? 'check' : 'time') . '"></td>';
 
+                    // to avoid display actions buttons for connected user
                     if($user['id_user'] != $_SESSION['id']) {
                         echo '<td><a class="button button-action" href="./modifyUser.php?id=' . $user['id_user'] . '"><i class="fas fa-pen"></i></a>  <a class="button button-action"  href="./deleteUser.php?id=' . $user['id_user'] . '"><i class="fas fa-times"></i></a> </td>';
                     }
