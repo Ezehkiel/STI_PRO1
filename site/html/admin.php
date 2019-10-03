@@ -28,7 +28,11 @@ $users = getAllUsers();
                     echo '<td>' . $user['login'] . '</td>';
                     echo '<td>' . $user['admin'] . '</td>';
                     echo '<td><i class="fas fa-' . ($user['validite'] ? 'check' : 'time') . '"></td>';
-                    echo '<td><a class="button button-action" href="./info_user.php?id=' . $user['id'] . '"><i class="fas fa-pen"></i></a>  <a class="button button-action" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-times"></i></a> </td>';
+
+                    if($user['id_user'] != $_SESSION['id']) {
+                        echo '<td><a class="button button-action" href="./modifyUser.php?id=' . $user['id_user'] . '"><i class="fas fa-pen"></i></a>  <a class="button button-action"  href="./deleteUser.php?id=' . $user['id_user'] . '"><i class="fas fa-times"></i></a> </td>';
+                    }
+            
                     echo '<tr>';
                 }
                 ?>
@@ -38,11 +42,11 @@ $users = getAllUsers();
     </div>
 </div>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!--<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Delete user</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -52,11 +56,11 @@ $users = getAllUsers();
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary">Delete user</button>
             </div>
         </div>
     </div>
-</div>
+</div>-->
 
 <?php
 

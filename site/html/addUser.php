@@ -19,9 +19,9 @@ include ("databaseLib/requestsDatabase.php");
                 $rule = "";
 
                 if(isset($_POST['adminNewUser'])) {
-                    $rule = "admin";
+                    $rule = "administrator";
                 } else {
-                    $rule = "collab";
+                    $rule = "collaborator";
                 }
 
                 if(addUser($login, $password, $rule)) {
