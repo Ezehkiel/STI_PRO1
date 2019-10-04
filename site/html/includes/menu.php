@@ -23,6 +23,9 @@
         }
         ?>
         <li>
+            <a href="changePassword.php">Change password</a>
+        </li>
+        <li>
             <a href="logout.php">Déconnexion</a>
         </li>
     </ul>

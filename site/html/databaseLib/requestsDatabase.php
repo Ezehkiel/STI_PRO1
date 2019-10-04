@@ -131,6 +131,22 @@ function updateUser($password, $admin, $validity, $id) {
     return true;
 }
 
+function updatePassword($id, $newPassword) {
+    static $req = null;
+    
+    if($req == null) {
+        $req = db_connect()->prepare('UPDATE users SET password = ? WHERE id_user = ?');
+    }
+    
+    try {
+        $req->execute(array($newPassword, $id));
+    } catch(Exception $e) {
+        return false;
+    }
+
+    return true;
+}
+
 /**
  * MESSAGE REQUESTS
  */
