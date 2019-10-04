@@ -2,7 +2,7 @@
 include ("includes/head.php");
 include ("utility/utility.php");
 include ("databaseLib/requestsDatabase.php");
-$users = getAllUser();
+$users = getAllUsers();
 $error = false;
 if (isset($_POST['destinataire']) && isset($_POST['sujet']) && isset($_POST['message'])) {
     if(!empty($_POST['destinataire']) && !empty($_POST['sujet']) && !empty($_POST['message'])){
