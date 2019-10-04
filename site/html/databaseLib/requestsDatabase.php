@@ -20,6 +20,16 @@ function db_connect(){
  * USERS REQUESTS
  */
 
+function getAllUser(){
+
+    static $req = null;
+    if($req == null) {
+        $req = db_connect()->query('SELECT * from users');
+    }
+
+    return $req->fetchAll(PDO::FETCH_ASSOC);
+}
+
 function getId($username){
     static $req = null;
     if($req == null) {
@@ -55,4 +65,37 @@ function isAdmin($id){
 /**
  * MESSAGE REQUESTS
  */
+
+function addMessage($senderId, $recipientId, $object, $message){
+
+    static $req = null;
+
+    if($req == null){
+        $req = db_connect()->prepare('INSERT INTO messages (id_expediteur, id_destinataire, sujet, message) VALUES (?,?,?,?)');
+    }
+    if (empty($senderId) || empty($recipientId) || empty($object) || empty($message)) {
+        return false;
+    }
+
+    try {
+        $req->execute([$senderId, $recipientId, $object, $message]);
+    } catch (Exception $e) {
+        echo $e;
+        return false;
+    }
+
+    return true;
+
+}
+
+function fetchMessage($id){
+
+    static $req = null;
+    if($req == null){
+        $req = db_connect()->prepare('SELECT * FROM messages WHERE id_destinataire = ?');
+    }
+    $req->execute(array($id));
+    return $req->fetchAll(PDO::FETCH_ASSOC);
+
+}
 ?>
