@@ -71,7 +71,7 @@ function deleteUser($id){
     static $req = null;
     if ($req == null) {
         $req = db_connect()->prepare(
-            'DELETE FROM users WHERE id_user = ? '
+            'DELETE FROM users WHERE id_user = ?'
         );
     }
 

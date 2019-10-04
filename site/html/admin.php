@@ -32,7 +32,9 @@ $users = getAllUsers(); //get all users in database
 
                     // to avoid display actions buttons for connected user
                     if($user['id_user'] != $_SESSION['id']) {
-                        echo '<td><a class="button button-action" href="./modifyUser.php?id=' . $user['id_user'] . '"><i class="fas fa-pen"></i></a>  <a class="button button-action"  href="./deleteUser.php?id=' . $user['id_user'] . '"><i class="fas fa-times"></i></a> </td>';
+                        echo '<td><a class="button button-action" href="./modifyUser.php?id=' . $user['id_user'] . '"><i class="fas fa-pen"></i></a>  <a class="button button-action"  data-toggle="modal" data-target="#user-modal-'.$user['id_user'].'"><i class="fas fa-trash-alt"></i></a> </td>';
+                    } else {
+                        echo '<td><a class="button button-action" href="./modifyUser.php?id=' . $user['id_user'] . '"><i class="fas fa-pen"></i></a></td>';
                     }
             
                     echo '<tr>';
@@ -44,25 +46,33 @@ $users = getAllUsers(); //get all users in database
     </div>
 </div>
 
-<!--<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Delete user</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Are you sure you want to delete this user ?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Delete user</button>
+<?php 
+    foreach ($users as $user) {
+        ?>
+        <div class="modal fade" id="user-modal-<?=$user['id_user'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Delete user : <?=$user['login'];?></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure to delete this user ?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <!--<button type="button" class="btn btn-primary">Delete user</button>-->
+                        <a href="./deleteUser.php?id=<?=$user['id_user'];?>" class="button btn btn-primary">Delete</a>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>-->
+        <?php
+    }
+?>
+
 
 <?php
 
