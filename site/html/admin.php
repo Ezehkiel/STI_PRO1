@@ -3,6 +3,8 @@ include ("includes/head.php");
 include ("utility/utility.php");
 include ("databaseLib/requestsDatabase.php");
 
+checkIfAdmin($_SESSION['id']);
+
 $users = getAllUsers(); //get all users in database
 ?>
 

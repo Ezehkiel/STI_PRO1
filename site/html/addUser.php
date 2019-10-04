@@ -4,6 +4,8 @@ include ("includes/head.php");
 include ("utility/utility.php");
 include ("databaseLib/requestsDatabase.php");
 
+checkIfAdmin($_SESSION['id']);
+
 $information = false;
 
 // when the admin click on "Add" button
