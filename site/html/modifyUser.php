@@ -3,6 +3,8 @@ include ("includes/head.php");
 include ("utility/utility.php");
 include ("databaseLib/requestsDatabase.php");
 
+checkIfAdmin($_SESSION['id']);
+
 $id = $_GET['id']; //get id in URL
 
 $user_info = getUser($id); //get user

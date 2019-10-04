@@ -19,8 +19,6 @@ function db_connect(){
 /**
  * USERS REQUESTS
  */
-
-
 function getAllUsers(){
 
     static $req = null;
