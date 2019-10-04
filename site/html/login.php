@@ -4,9 +4,11 @@ include ("utility/utility.php");
 session_start();
 
 if (isset($_POST['password']) && isset($_POST['username']) ) {
+    echo checkLogin( $_POST['username'], $_POST['password']);
     if ($_POST['password'] != "" && $_POST['username'] != "" && checkLogin( $_POST['username'], $_POST['password'])) {
         $_SESSION['connecte'] = true;
         $_SESSION['id'] = getId($_POST['username']);
+        $_SESSION['username'] = $_POST['username'];
         $_SESSION['isAdmin'] = isAdmin($_SESSION['id']);
 
     } else {

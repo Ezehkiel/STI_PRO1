@@ -9,14 +9,19 @@ if(isset($_GET['idMessage'])){
 
     $messageId = htmlspecialchars($_GET['idMessage']);
     $message = getMessage($messageId);
+    setStateMessage($messageId, 1);
 
 }
 
 if (isset($_POST['destinataire']) && isset($_POST['sujet']) && isset($_POST['message'])) {
     if(!empty($_POST['destinataire']) && !empty($_POST['sujet']) && !empty($_POST['message'])){
-        addMessage($_SESSION['id'], $_POST['destinataire'], $_POST['sujet'], $_POST['message']);
+        if(!addMessage($_SESSION['id'], $_POST['destinataire'], $_POST['sujet'], $_POST['message'])){
+            $statusMessage = "<h4>An error occurred, your message can't be delivered</h4>";
+        }else{
+            $statusMessage = "<h4>Your message have been send</h4>";
+        }
     }else{
-        $error = "Informations are missing";
+        $statusMessage = "<h4>Informations are missing</h4>";
     }
 }
 ?>
@@ -48,8 +53,8 @@ if (isset($_POST['destinataire']) && isset($_POST['sujet']) && isset($_POST['mes
             <button type="submit" class="btn btn-primary">Envoyer</button>
         </form>
         <?php
-        if ($error){
-            echo $error;
+        if ($statusMessage){
+            echo $statusMessage;
         }
         ?>
 </div>

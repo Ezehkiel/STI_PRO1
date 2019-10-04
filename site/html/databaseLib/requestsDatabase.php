@@ -4,8 +4,9 @@ function db_connect(){
     static $myDb = null;
 
     if ($myDb === null) {
+
         try {
-            $myDB = new PDO('sqlite:/usr/share/nginx/databases/sti_project1');
+            $myDB = new PDO('sqlite:/usr/share/nginx/databases/sti_project1.sqlite');
             $myDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (Exception $e) {
             die("Impossible d'ouvrir la base de donnée: " . $e->getMessage());
@@ -57,6 +58,7 @@ function checkLogin($username, $password){
     }
     $req->execute(array($username));
     $data = $req->fetch(PDO::FETCH_ASSOC);
+    //return true;
     return $data['password'] == $password;
 }
 
@@ -68,7 +70,7 @@ function isAdmin($id){
     }
     $req->execute(array($id));
     $data = $req->fetch(PDO::FETCH_ASSOC);
-    return $data['admin'] == "admin";
+    return $data['admin'] == "administrator";
 
 }
 
@@ -90,7 +92,6 @@ function addMessage($senderId, $recipientId, $object, $message){
     try {
         $req->execute([$senderId, $recipientId, $object, $message]);
     } catch (Exception $e) {
-        echo $e;
         return false;
     }
 
@@ -137,5 +138,28 @@ function deleteMessage($id){
 
     return true;
 
+}
+
+function setStateMessage($id, $state){
+
+    static $req = null;
+    if ($req == null) {
+        $req = db_connect()->prepare(
+            'UPDATE messages SET lu = ? WHERE id_message = ?'
+        );
+    }
+
+    if (empty($id)) {
+        return false;
+    }
+
+    try {
+        $req->execute([$state, $id]);
+    } catch (Exception $e) {
+        print_r($e);
+        return false;
+    }
+
+    return true;
 }
 ?>
