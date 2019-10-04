@@ -20,11 +20,14 @@ function db_connect(){
  * USERS REQUESTS
  */
 
-function getAllUser(){
+
+function getAllUsers(){
 
     static $req = null;
-    if($req == null) {
-        $req = db_connect()->query('SELECT * from users');
+    if ($req == null) {
+        $req = db_connect()->query(
+            'SELECT * from users'
+        );
     }
 
     return $req->fetchAll(PDO::FETCH_ASSOC);
@@ -58,8 +61,74 @@ function isAdmin($id){
     }
     $req->execute(array($id));
     $data = $req->fetch(PDO::FETCH_ASSOC);
-    return $data['admin'] == "admin";
+    return $data['admin'] == "administrator";
 
+}
+
+function deleteUser($id){
+
+    static $req = null;
+    if ($req == null) {
+        $req = db_connect()->prepare(
+            'DELETE FROM users WHERE id_user = ?'
+        );
+    }
+
+    try {
+        $req->execute([$id]);
+    } catch (Exception $e) {
+        //return false;
+        echo $e->getMessage();
+    }
+
+    return true;
+}
+
+function addUser($login, $password, $rule) {
+    static $req = null;
+
+    if($req == null) {
+        $req = db_connect()->prepare('INSERT INTO users (login, password, admin) VALUES(?, ?, ?)');
+    }
+    
+    try {
+        $req->execute(array($login, $password, $rule));
+    } catch(Exception $e) {
+        return false;
+    }
+
+    return true;
+}
+
+function getUser($id) {
+    static $req = null;
+    if($req == null){
+        $req = db_connect()->prepare('SELECT * FROM users WHERE id_user = ?');
+    }
+
+    try {
+        $req->execute(array($id));
+        $data = $req->fetch(PDO::FETCH_ASSOC);
+        return $data;
+    } catch(Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
+function updateUser($password, $admin, $validity, $id) {
+    static $req = null;
+    
+    if($req == null) {
+        $req = db_connect()->prepare('UPDATE users SET password = ?, admin = ?, validite = ? WHERE id_user = ?');
+    }
+    
+    try {
+        $req->execute(array($password, $admin, $validity, $id));
+    } catch(Exception $e) {
+        return false;
+    }
+
+    return true;
 }
 
 /**
