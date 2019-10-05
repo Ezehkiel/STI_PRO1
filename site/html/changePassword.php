@@ -29,8 +29,6 @@ if(isset($_POST['update_password_form'])) {
         } else {
             $information = "Missing informations.";
         }
-
-        
     }
 }
 ?>
@@ -40,7 +38,7 @@ if(isset($_POST['update_password_form'])) {
         <p><label>Old password : </label><input type="password" name="oldPassword" /></p>
         <p><label>New password : </label><input type="password" name="newPassword" /></p>
         <p><label>Confirm password : </label><input type="password" name="newPasswordConfirm" /></p>
-        <p><button type="submit" name="update_password_form" class="btn btn-primary">Modify user</button></p>
+        <p><button type="submit" name="update_password_form" class="btn btn-primary">Change password</button></p>
 
         <?php
             if($information) {
