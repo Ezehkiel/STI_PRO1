@@ -51,6 +51,16 @@ function checkLogin($username, $password){
     return $data['password'] == $password;
 }
 
+function checkIfValid($username) {
+    static $req = null;
+    if($req == null) {
+        $req = db_connect()->prepare('SELECT validite from users WHERE login = ?');
+    }
+    $req->execute(array($username));
+    $data = $req->fetch(PDO::FETCH_ASSOC);
+    return $data['validite'] == 1;
+}
+
 function isAdmin($id){
 
     static $req = null;
