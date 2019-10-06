@@ -275,4 +275,16 @@ function setStateMessage($id, $state){
 
     return true;
 }
+
+function numberUnreadMessage($id){
+
+    static $req = null;
+    if($req == null){
+        $req = db_connect()->prepare('SELECT COUNT(*) as nb FROM messages WHERE id_destinataire = ? and lu = 0');
+    }
+    $req->execute(array($id));
+    $data = $req->fetch(PDO::FETCH_ASSOC);
+    return $data['nb'];
+
+}
 ?>

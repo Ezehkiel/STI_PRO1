@@ -15,6 +15,9 @@ if(isset($_GET['idMessage'])){
 ?>
 
 <div class="container-fluid">
+    <div class="row">
+        <h1 class="col-4"><u>Message detail</u></h1>
+    </div>
     <form method="post">
         <div class="row">
             <div class="form-group col-3">

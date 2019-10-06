@@ -28,9 +28,10 @@ if(isset($_GET['unread'])){
 }
 
 ?>
-
-
 <div class="container-fluid">
+    <div class="row">
+        <h1 class="col-4"><u>Mailbox</u></h1>
+    </div>
     <div class="row">
         <?php
         if (!$deleteOk){

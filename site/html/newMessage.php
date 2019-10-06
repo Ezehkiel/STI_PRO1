@@ -27,6 +27,9 @@ if (isset($_POST['destinataire']) && isset($_POST['sujet']) && isset($_POST['mes
 ?>
 
 <div class="container-fluid">
+    <div class="row">
+        <h1 class="col-4"><u>New message</u></h1>
+    </div>
         <form method="post">
             <div class="form-group">
                 <label for="destinataire">Destinataire</label>
