@@ -1,4 +1,5 @@
 <?php
+    session_start();
     include ("utility/utility.php");
     include ("databaseLib/requestsDatabase.php");
     
@@ -12,5 +13,5 @@
         } else {
             echo "Error";
         }
-    } 
+    }
 ?>
