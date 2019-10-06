@@ -55,7 +55,7 @@ if(isset($_GET['unread'])){
                 echo '<td>' . $mail['date_reception'] . '</td>';
                 echo '<td>
                         <a title="Reply" href="./newMessage.php?idMessage=' .$mail['id_message'] . '"><i class="fas fa-reply"></i></a> 
-                        <i class="fas fa-plus"></i> 
+                        <a title="Show details" href="./showMessage.php?idMessage=' .$mail['id_message'] . '"><i class="fas fa-plus"></i></a>
                         <a title="Delete message" href="./inbox.php?delete=' . $mail['id_message'] .'"><i class="fas fa-trash-alt"></i></a> 
                         <a title="Mark as read" href="./inbox.php?read=' . $mail['id_message'] .'"><i class="fas fa-envelope-open"></i></a>
                         <a title="Mark as unread" href="./inbox.php?unread=' . $mail['id_message'] .'"><i class="fas fa-envelope"></i></a> </td>';

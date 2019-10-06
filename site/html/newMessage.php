@@ -2,7 +2,7 @@
 include ("includes/head.php");
 include ("utility/utility.php");
 include ("databaseLib/requestsDatabase.php");
-$users = getAllUser();
+$users = getAllUsers();
 $error = false;
 
 if(isset($_GET['idMessage'])){
