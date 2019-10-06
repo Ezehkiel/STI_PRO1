@@ -155,6 +155,27 @@ function updatePassword($id, $newPassword) {
     return true;
 }
 
+function checkLoginAvailable($login) {
+    static $req = null;
+    if($req == null){
+        $req = db_connect()->query('SELECT login FROM users');
+    }
+
+    try {
+        $data = $req->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach($data as $user) {
+            if($login == $user['login']) {
+                return false;
+            }
+        }
+
+        return true;
+    } catch(Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
 /**
  * MESSAGE REQUESTS
  */

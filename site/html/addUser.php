@@ -12,24 +12,28 @@ $information = false;
 if(isset($_POST['add_user_form'])) {
     if(isset($_POST['loginNewUser']) && isset($_POST['passwordNewUser']) && isset($_POST['confirmPasswordNewUser'])) { //check if they exist
         if(!empty($_POST['loginNewUser']) && !empty($_POST['passwordNewUser']) && !empty($_POST['confirmPasswordNewUser'])) { //check if they are not empty
-            if($_POST['passwordNewUser'] == $_POST['confirmPasswordNewUser']) { //check if two passwords are the same
-                $login = $_POST['loginNewUser'];
-                $password = $_POST['passwordNewUser'];
-                $rule = "";
-
-                if(isset($_POST['adminNewUser'])) {
-                    $rule = "administrator";
+            if(checkLoginAvailable($_POST['loginNewUser'])) {
+                if($_POST['passwordNewUser'] == $_POST['confirmPasswordNewUser']) { //check if two passwords are the same
+                    $login = $_POST['loginNewUser'];
+                    $password = $_POST['passwordNewUser'];
+                    $rule = "";
+    
+                    if(isset($_POST['adminNewUser'])) {
+                        $rule = "administrator";
+                    } else {
+                        $rule = "collaborator";
+                    }
+    
+                    if(addUser($login, $password, $rule)) {
+                        $information = "New user added.";
+                    } else {
+                        $information = "Error.";
+                    }
                 } else {
-                    $rule = "collaborator";
-                }
-
-                if(addUser($login, $password, $rule)) {
-                    $information = "New user added.";
-                } else {
-                    $information = "Error.";
+                    $information = "The two passwords do not match!";
                 }
             } else {
-                $information = "The two passwords do not match!";
+                $information = "Login already used.";
             }
         } else {
             $information = "Missing informations.";
