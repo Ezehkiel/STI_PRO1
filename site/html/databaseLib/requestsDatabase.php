@@ -158,19 +158,18 @@ function updatePassword($id, $newPassword) {
 function checkLoginAvailable($login) {
     static $req = null;
     if($req == null){
-        $req = db_connect()->query('SELECT login FROM users');
+        $req = db_connect()->prepare('SELECT login FROM users WHERE login = ?');
     }
 
     try {
-        $data = $req->fetchAll(PDO::FETCH_ASSOC);
+        $req->execute(array($login));
+        $data = $req->fetch(PDO::FETCH_ASSOC);
 
-        foreach($data as $user) {
-            if($login == $user['login']) {
-                return false;
-            }
+        if(empty($data)) {
+            return true;
+        } else {
+            return false;
         }
-
-        return true;
     } catch(Exception $e) {
         echo $e->getMessage();
     }
