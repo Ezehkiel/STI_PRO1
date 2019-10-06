@@ -20,8 +20,6 @@ function db_connect(){
 /**
  * USERS REQUESTS
  */
-
-
 function getAllUsers(){
 
     static $req = null;
@@ -63,6 +61,16 @@ function checkLogin($username, $password){
     $data = $req->fetch(PDO::FETCH_ASSOC);
     //return true;
     return $data['password'] == $password;
+}
+
+function checkIfValid($username) {
+    static $req = null;
+    if($req == null) {
+        $req = db_connect()->prepare('SELECT validite from users WHERE login = ?');
+    }
+    $req->execute(array($username));
+    $data = $req->fetch(PDO::FETCH_ASSOC);
+    return $data['validite'] == 1;
 }
 
 function isAdmin($id){
@@ -141,6 +149,42 @@ function updateUser($password, $admin, $validity, $id) {
     }
 
     return true;
+}
+
+function updatePassword($id, $newPassword) {
+    static $req = null;
+    
+    if($req == null) {
+        $req = db_connect()->prepare('UPDATE users SET password = ? WHERE id_user = ?');
+    }
+    
+    try {
+        $req->execute(array($newPassword, $id));
+    } catch(Exception $e) {
+        return false;
+    }
+
+    return true;
+}
+
+function checkLoginAvailable($login) {
+    static $req = null;
+    if($req == null){
+        $req = db_connect()->prepare('SELECT login FROM users WHERE login = ?');
+    }
+
+    try {
+        $req->execute(array($login));
+        $data = $req->fetch(PDO::FETCH_ASSOC);
+
+        if(empty($data)) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch(Exception $e) {
+        echo $e->getMessage();
+    }
 }
 
 /**
