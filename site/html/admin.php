@@ -1,3 +1,4 @@
+
 <?php
 include ("includes/head.php");
 include ("utility/utility.php");
@@ -11,6 +12,7 @@ $users = getAllUsers(); //get all users in database
 <div class="container-fluid">
     <form method="post" action="addUser.php">
         <p><button type="submit" name="add_user" class="btn btn-primary">Add user</button></p>
+        <p><a href="./home.php" class="btn btn-primary">Back</a></p>
     </form>
     <div class="row">
 <!--        <form method="post">-->
@@ -71,6 +73,7 @@ $users = getAllUsers(); //get all users in database
                 </div>
             </div>
         </div>
+        
         <?php
     }
 ?>
@@ -80,3 +83,4 @@ $users = getAllUsers(); //get all users in database
 
 include ("includes/foot.php");
 ?>
+

@@ -33,7 +33,8 @@ if (isset($_POST['destinataire']) && isset($_POST['sujet']) && isset($_POST['mes
                 <label for="message">Message</label>
                 <textarea class="form-control" id="message" rows="9" name="message"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Envoyer</button>
+            <p><button type="submit" class="btn btn-primary">Envoyer</button></p>
+            <p><a href="./home.php" class="btn btn-primary">Back</a></p>
         </form>
         <?php
         if ($error){
