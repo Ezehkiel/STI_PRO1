@@ -26,7 +26,7 @@ $execute_update = false;
 
 // when admin click on update button
 if(isset($_POST['update_user_form'])) { 
-    if(isset($_POST['oldPasswordUser']) && isset($_POST['newPasswordUser']) && isset($_POST['passwordUserVerif'])) { // check if they exist
+    if(isset($_POST['newPasswordUser']) && isset($_POST['passwordUserVerif'])) { // check if they exist
        
         // check if checkboxes are checked
         if(isset($_POST['newAdminUser'])) {
@@ -42,15 +42,19 @@ if(isset($_POST['update_user_form'])) {
         }
         
         // if password fields are not empty
-        if(!empty($_POST['oldPasswordUser']) && !empty($_POST['newPasswordUser']) && !empty($_POST['passwordUserVerif'])) {
+        if(!empty($_POST['newPasswordUser']) && !empty($_POST['passwordUserVerif'])) {
+            // if new password is not equal to actual password
+            if($_POST['newPasswordUser'] != $user_info['password']) {
+                // if new password and confirm password match and old input password and old password in database match
+                if(($_POST['newPasswordUser'] == $_POST['passwordUserVerif'])) {
+                    $newPassword = $_POST['newPasswordUser'];
 
-            // if new password and confirm password match and old input password and old password in database match
-            if(($_POST['newPasswordUser'] == $_POST['passwordUserVerif']) && ($_POST['oldPasswordUser']) == $user_info['password']) {
-                $newPassword = $_POST['newPasswordUser'];
-
-                $execute_update = true;
+                    $execute_update = true;
+                } else {
+                    $information = "Passwords do not match.";
+                }
             } else {
-                $information = "Passwords do not match.";
+                $information = "New password cannot be the actually one.";
             }
         } else {
             $newPassword = $user_info['password'];
@@ -73,7 +77,6 @@ if(isset($_POST['update_user_form'])) {
 <div class="container-fluid">
     <form method="post">
         <p><label>Login : </label><input type="text" name="loginUser" value="<?=$user_info['login'];?>" readonly/></p>
-        <p><label>Old password : </label><input type="password" name="oldPasswordUser" /></p>
         <p><label>New password : </label><input type="password" name="newPasswordUser" /></p>
         <p><label>Confirm password : </label><input type="password" name="passwordUserVerif" /></p>
         <p><label>Administrator : </label><input type="checkbox" name="newAdminUser" <?=$checked_admin;?>/></p>
