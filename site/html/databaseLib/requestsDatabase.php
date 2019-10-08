@@ -216,7 +216,7 @@ function getMessage($id){
 
     static $req = null;
     if($req == null) {
-        $req = db_connect()->prepare('SELECT * from messages WHERE id_message = ?');
+        $req = db_connect()->prepare('SELECT *, datetime(date_reception, "+02 hours") AS utc_date from messages WHERE id_message = ?');
     }
     $req->execute(array($id));
     return $req->fetch(PDO::FETCH_ASSOC);
