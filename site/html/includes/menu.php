@@ -1,6 +1,7 @@
 <nav id="sidebar">
     <div class="sidebar-header">
         <h3>WebMessenger</h3>
+        <h6>You are logged as: <?= $_SESSION['username'] ?></h6>
     </div>
 
     <ul class="list-unstyled components">

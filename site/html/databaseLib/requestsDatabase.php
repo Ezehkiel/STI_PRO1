@@ -4,8 +4,9 @@ function db_connect(){
     static $myDb = null;
 
     if ($myDb === null) {
+
         try {
-            $myDB = new PDO('sqlite:/usr/share/nginx/databases/sti_project1');
+            $myDB = new PDO('sqlite:/usr/share/nginx/databases/sti_project1.sqlite');
             $myDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (Exception $e) {
             die("Impossible d'ouvrir la base de donnée: " . $e->getMessage());
@@ -41,6 +42,16 @@ function getId($username){
     return $data['id_user'];
 }
 
+function getUsername($id){
+    static $req = null;
+    if($req == null) {
+        $req = db_connect()->prepare('SELECT login from users WHERE id_user = ?');
+    }
+    $req->execute(array($id));
+    $data = $req->fetch(PDO::FETCH_ASSOC);
+    return $data['login'];
+}
+
 function checkLogin($username, $password){
     static $req = null;
     if($req == null) {
@@ -48,6 +59,7 @@ function checkLogin($username, $password){
     }
     $req->execute(array($username));
     $data = $req->fetch(PDO::FETCH_ASSOC);
+    //return true;
     return $data['password'] == $password;
 }
 
@@ -193,7 +205,6 @@ function addMessage($senderId, $recipientId, $object, $message){
     try {
         $req->execute([$senderId, $recipientId, $object, $message]);
     } catch (Exception $e) {
-        echo $e;
         return false;
     }
 
@@ -201,14 +212,79 @@ function addMessage($senderId, $recipientId, $object, $message){
 
 }
 
+function getMessage($id){
+
+    static $req = null;
+    if($req == null) {
+        $req = db_connect()->prepare('SELECT * from messages WHERE id_message = ?');
+    }
+    $req->execute(array($id));
+    return $req->fetch(PDO::FETCH_ASSOC);
+
+}
+
 function fetchMessage($id){
 
     static $req = null;
     if($req == null){
-        $req = db_connect()->prepare('SELECT * FROM messages WHERE id_destinataire = ?');
+        $req = db_connect()->prepare('SELECT * FROM messages WHERE id_destinataire = ? ORDER BY date_reception DESC');
     }
     $req->execute(array($id));
     return $req->fetchAll(PDO::FETCH_ASSOC);
+
+}
+
+function deleteMessage($id){
+
+    static $req = null;
+    if ($req == null) {
+        $req = db_connect()->prepare(
+            'DELETE FROM messages WHERE id_message = ?'
+        );
+    }
+
+    try {
+        $req->execute([$id]);
+    } catch (Exception $e) {
+        return false;
+    }
+
+    return true;
+
+}
+
+function setStateMessage($id, $state){
+
+    static $req = null;
+    if ($req == null) {
+        $req = db_connect()->prepare(
+            'UPDATE messages SET lu = ? WHERE id_message = ?'
+        );
+    }
+
+    if (empty($id)) {
+        return false;
+    }
+
+    try {
+        $req->execute([$state, $id]);
+    } catch (Exception $e) {
+        print_r($e);
+        return false;
+    }
+
+    return true;
+}
+
+function numberUnreadMessage($id){
+
+    static $req = null;
+    if($req == null){
+        $req = db_connect()->prepare('SELECT COUNT(*) as nb FROM messages WHERE id_destinataire = ? and lu = 0');
+    }
+    $req->execute(array($id));
+    $data = $req->fetch(PDO::FETCH_ASSOC);
+    return $data['nb'];
 
 }
 ?>

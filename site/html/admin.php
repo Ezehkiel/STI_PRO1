@@ -9,6 +9,9 @@ $users = getAllUsers(); //get all users in database
 ?>
 
 <div class="container-fluid">
+    <div class="row">
+        <h1 class="col-4"><u>Admin menu</u></h1>
+    </div>
     <form method="post" action="addUser.php">
         <p><button type="submit" name="add_user" class="btn btn-primary">Add user</button></p>
     </form>
@@ -30,7 +33,7 @@ $users = getAllUsers(); //get all users in database
                     echo '<tr>';
                     echo '<td>' . $user['login'] . '</td>';
                     echo '<td>' . $user['admin'] . '</td>';
-                    echo '<td><i class="fas fa-' . ($user['validite'] ? 'check' : 'time') . '"></td>';
+                    echo '<td><i class="fas fa-' . ($user['validite'] ? 'check' : 'times') . '"></td>';
 
                     // to avoid display actions buttons for connected user
                     if($user['id_user'] != $_SESSION['id']) {

@@ -7,6 +7,7 @@ if (isset($_POST['password']) && isset($_POST['username']) ) {
     if ($_POST['password'] != "" && $_POST['username'] != "" && checkLogin( $_POST['username'], $_POST['password']) && checkIfValid($_POST['username'])) {
         $_SESSION['connecte'] = true;
         $_SESSION['id'] = getId($_POST['username']);
+        $_SESSION['username'] = $_POST['username'];
         $_SESSION['isAdmin'] = isAdmin($_SESSION['id']);
     } else {
         $error = true;

@@ -44,6 +44,9 @@ if(isset($_POST['add_user_form'])) {
 ?>
 
 <div class="container-fluid">
+    <div class="row">
+        <h1 class="col-4"><u>Add user</u></h1>
+    </div>
     <form method="post">
         <p><label>Login : </label><input type="text" name="loginNewUser" placeholder="New login" /></p>
         <p><label>Password : </label><input type="password" name="passwordNewUser" /></p>

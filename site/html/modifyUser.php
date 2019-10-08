@@ -75,6 +75,9 @@ if(isset($_POST['update_user_form'])) {
 ?>
 
 <div class="container-fluid">
+    <div class="row">
+        <h1 class="col-4"><u>Modify user</u></h1>
+    </div>
     <form method="post">
         <p><label>Login : </label><input type="text" name="loginUser" value="<?=$user_info['login'];?>" readonly/></p>
         <p><label>New password : </label><input type="password" name="newPasswordUser" /></p>

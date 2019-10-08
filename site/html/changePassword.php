@@ -34,6 +34,9 @@ if(isset($_POST['update_password_form'])) {
 ?>
 
 <div class="container-fluid">
+    <div class="row">
+        <h1 class="col-4"><u>Change password</u></h1>
+    </div>
     <form method="post">
         <p><label>Old password : </label><input type="password" name="oldPassword" /></p>
         <p><label>New password : </label><input type="password" name="newPassword" /></p>
