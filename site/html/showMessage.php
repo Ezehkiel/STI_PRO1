@@ -6,8 +6,7 @@ include ("databaseLib/requestsDatabase.php");
 if(isset($_GET['idMessage'])){
 
     $message = getMessage($_GET['idMessage']);
-
-    if($message['id_expediteur'] != $_SESSION['id'] || $message['id_destinataire'] != $_SESSION['id'] ){
+    if($message['id_expediteur'] != $_SESSION['id'] && $message['id_destinataire'] != $_SESSION['id'] ){
         header('location: inbox.php');
     }
     setStateMessage($_GET['idMessage'], 1);
