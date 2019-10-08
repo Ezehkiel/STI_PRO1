@@ -84,8 +84,8 @@ if(isset($_POST['update_user_form'])) {
         <p><label>Confirm password : </label><input type="password" name="passwordUserVerif" /></p>
         <p><label>Administrator : </label><input type="checkbox" name="newAdminUser" <?=$checked_admin;?>/></p>
         <p><label>Validity : </label><input type="checkbox" name="newValidity" <?=$checked_valid;?>/></p>
-        <p><button type="submit" name="update_user_form" class="btn btn-primary">Modify user</button></p>
-        <p><a href="./admin.php" class="btn btn-primary">Back</a></p>
+        <button type="submit" name="update_user_form" class="btn btn-primary">Modify user</button>
+        <a href="./admin.php" class="btn btn-secondary">Back</a>
 
         <?php
             if($information) {

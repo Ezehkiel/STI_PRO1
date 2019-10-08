@@ -52,8 +52,8 @@ if(isset($_POST['add_user_form'])) {
         <p><label>Password : </label><input type="password" name="passwordNewUser" /></p>
         <p><label>Confirm password : </label><input type="password" name="confirmPasswordNewUser" /></p>
         <p><label>Administrator : </label><input type="checkbox" name="adminNewUser" /></p>
-        <p><button type="submit" name="add_user_form" class="btn btn-primary">Add user</button></p>
-        <p><a href="./admin.php" class="btn btn-primary">Back</a></p>
+        <p><button type="submit" name="add_user_form" class="btn btn-primary">Add user</button>
+        <a href="./admin.php" class="btn btn-secondary">Back</a></p>
 
         <?php
             if($information) {

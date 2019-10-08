@@ -33,6 +33,9 @@ if(isset($_GET['unread'])){
         <h1 class="col-4"><u>Mailbox</u></h1>
     </div>
     <div class="row">
+        <p class="col-1"><a href="./home.php" class="btn btn-secondary">Back</a></p>
+    </div>
+    <div class="row">
         <?php
         if (!$deleteOk){
             echo "<h4>Unable to delete this message</h4>";
@@ -69,8 +72,6 @@ if(isset($_GET['unread'])){
     </div>
 
 </div>
-
-<p><a href="./home.php" class="btn btn-primary">Back</a></p>
 
 <?php
 

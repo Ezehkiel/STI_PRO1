@@ -52,6 +52,7 @@ if(isset($_GET['idMessage'])){
             </div>
         </div>
         <div class="row">
+            <a class="btn btn-secondary col-1" href="./inbox.php">Back</a>
             <a class="btn btn-primary col-1" href="./newMessage.php?idMessage= <?= $message['id_message'] ?> ">Reply</a>
             <a class="btn btn-danger col-1" href="./inbox.php?delete=<?= $message['id_message'] ?>">Delete</a>
         </div>

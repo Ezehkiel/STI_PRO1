@@ -53,8 +53,8 @@ if (isset($_POST['destinataire']) && isset($_POST['sujet']) && isset($_POST['mes
                 <label for="message">Message</label>
                 <textarea class="form-control" id="message" rows="9" name="message"><?php if ($message) {$body = "\n\n\n------------------\n\n"; } else {$body = "";} $textBody = $body . ' ' . $message['message']; echo $textBody;?></textarea>
             </div>
-            <p><button type="submit" class="btn btn-primary">Envoyer</button></p>
-            <p><a href="./home.php" class="btn btn-primary">Back</a></p>
+            <button type="submit" class="btn btn-primary">Envoyer</button>
+            <a href="./home.php" class="btn btn-secondary">Back</a>
         </form>
         <?php
         if ($statusMessage){

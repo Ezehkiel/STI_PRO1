@@ -15,41 +15,41 @@ $users = getAllUsers(); //get all users in database
     </div>
     <form method="post" action="addUser.php">
         <p><button type="submit" name="add_user" class="btn btn-primary">Add user</button></p>
-        <p><a href="./home.php" class="btn btn-primary">Back</a></p>
     </form>
     <div class="row">
-<!--        <form method="post">-->
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th scope="col">Login</th>
-                    <th scope="col">Role</th>
-                    <th scope="col">Is active</th>
-                    <th scope="col"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php
-                // display all users
-                foreach ($users as $user) {
-                    echo '<tr>';
-                    echo '<td>' . $user['login'] . '</td>';
-                    echo '<td>' . $user['admin'] . '</td>';
-                    echo '<td><i class="fas fa-' . ($user['validite'] ? 'check' : 'times') . '"></td>';
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Login</th>
+                <th scope="col">Role</th>
+                <th scope="col">Is active</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+            // display all users
+            foreach ($users as $user) {
+                echo '<tr>';
+                echo '<td>' . $user['login'] . '</td>';
+                echo '<td>' . $user['admin'] . '</td>';
+                echo '<td><i class="fas fa-' . ($user['validite'] ? 'check' : 'times') . '"></td>';
 
-                    // to avoid display actions buttons for connected user
-                    if($user['id_user'] != $_SESSION['id']) {
-                        echo '<td><a class="button button-action" href="./modifyUser.php?id=' . $user['id_user'] . '"><i class="fas fa-pen"></i></a>  <a class="button button-action"  data-toggle="modal" data-target="#user-modal-'.$user['id_user'].'"><i class="fas fa-trash-alt"></i></a> </td>';
-                    } else {
-                        echo '<td><a class="button button-action" href="./modifyUser.php?id=' . $user['id_user'] . '"><i class="fas fa-pen"></i></a></td>';
-                    }
-            
-                    echo '<tr>';
+                // to avoid display actions buttons for connected user
+                if($user['id_user'] != $_SESSION['id']) {
+                    echo '<td><a class="button button-action" href="./modifyUser.php?id=' . $user['id_user'] . '"><i class="fas fa-pen"></i></a>  <a class="button button-action"  data-toggle="modal" data-target="#user-modal-'.$user['id_user'].'"><i class="fas fa-trash-alt"></i></a> </td>';
+                } else {
+                    echo '<td><a class="button button-action" href="./modifyUser.php?id=' . $user['id_user'] . '"><i class="fas fa-pen"></i></a></td>';
                 }
-                ?>
-                </tbody>
-            </table>
-<!--        </form>-->
+
+                echo '<tr>';
+            }
+            ?>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <a href="./home.php" class="btn btn-secondary">Back</a>
     </div>
 </div>
 
@@ -70,8 +70,7 @@ $users = getAllUsers(); //get all users in database
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <!--<button type="button" class="btn btn-primary">Delete user</button>-->
-                        <a href="./deleteUser.php?id=<?=$user['id_user'];?>" class="button btn btn-primary">Delete</a>
+                        <a href="./deleteUser.php?id=<?=$user['id_user'];?>" class="button btn btn-danger">Delete</a>
                     </div>
                 </div>
             </div>
