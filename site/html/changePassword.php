@@ -21,7 +21,7 @@ if(isset($_POST['update_password_form'])) {
                 if(updatePassword($id, $newPassword)) {
                     header('location: logout.php');
                 } else {
-                    $information = "Error.";
+                    $information = "Error during password change.";
                 }
             } else {
                 $information = "Passwords do not match.";

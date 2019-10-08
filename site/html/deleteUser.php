@@ -11,7 +11,7 @@
         if(deleteUser($id)) {
             header('location: admin.php');
         } else {
-            echo "Error";
+            echo "Error during user deletion.";
         }
     }
 ?>
