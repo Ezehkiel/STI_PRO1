@@ -42,6 +42,7 @@ if(isset($_POST['update_password_form'])) {
         <p><label>New password : </label><input type="password" name="newPassword" /></p>
         <p><label>Confirm password : </label><input type="password" name="newPasswordConfirm" /></p>
         <p><button type="submit" name="update_password_form" class="btn btn-primary">Change password</button></p>
+        <p><a href="./home.php" class="btn btn-primary">Back</a></p>
 
         <?php
             if($information) {

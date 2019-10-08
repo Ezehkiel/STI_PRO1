@@ -70,6 +70,8 @@ if(isset($_GET['unread'])){
 
 </div>
 
+<p><a href="./home.php" class="btn btn-primary">Back</a></p>
+
 <?php
 
 include ("includes/foot.php");
