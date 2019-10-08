@@ -227,7 +227,7 @@ function fetchMessage($id){
 
     static $req = null;
     if($req == null){
-        $req = db_connect()->prepare('SELECT * FROM messages WHERE id_destinataire = ? ORDER BY date_reception DESC');
+        $req = db_connect()->prepare('SELECT *, datetime(date_reception, "+02 hours") AS utc_date FROM messages WHERE id_destinataire = ? ORDER BY date_reception DESC');
     }
     $req->execute(array($id));
     return $req->fetchAll(PDO::FETCH_ASSOC);
