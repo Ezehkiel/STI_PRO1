@@ -31,7 +31,7 @@ if(isset($_GET['idMessage'])){
                 <h3>Date:</h3>
             </div>
             <div class="form-group col-3">
-                <?= $message['date_reception'] ?>
+                <?= $message['utc_date'] ?>
             </div>
         </div>
         <div class="row">

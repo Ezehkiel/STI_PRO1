@@ -56,7 +56,7 @@ if(isset($_GET['unread'])){
                 echo '<tr' . ($mail['lu'] ? ' class="table-active"' : '') . '>';
                 echo '<td>' . getUsername($mail['id_expediteur']) . '</td>';
                 echo '<td>' . $mail['sujet'] . '</td>';
-                echo '<td>' . $mail['date_reception'] . '</td>';
+                echo '<td>' . $mail['utc_date'] . '</td>';
                 echo '<td>
                         <a title="Reply" href="./newMessage.php?idMessage=' .$mail['id_message'] . '"><i class="fas fa-reply"></i></a> 
                         <a title="Show details" href="./showMessage.php?idMessage=' .$mail['id_message'] . '"><i class="fas fa-plus"></i></a>

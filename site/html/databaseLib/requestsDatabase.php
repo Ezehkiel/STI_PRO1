@@ -216,7 +216,7 @@ function getMessage($id){
 
     static $req = null;
     if($req == null) {
-        $req = db_connect()->prepare('SELECT * from messages WHERE id_message = ?');
+        $req = db_connect()->prepare('SELECT id_message, id_expediteur, id_detinataire, sujet, message, lu, datetime(date_reception, "localtime") AS utc_date from messages WHERE id_message = ?');
     }
     $req->execute(array($id));
     return $req->fetch(PDO::FETCH_ASSOC);
@@ -227,7 +227,7 @@ function fetchMessage($id){
 
     static $req = null;
     if($req == null){
-        $req = db_connect()->prepare('SELECT * FROM messages WHERE id_destinataire = ? ORDER BY date_reception DESC');
+        $req = db_connect()->prepare('SELECT id_message, id_expediteur, id_detinataire, sujet, message, lu, datetime(date_reception, "localtime") AS utc_date FROM messages WHERE id_destinataire = ? ORDER BY date_reception DESC');
     }
     $req->execute(array($id));
     return $req->fetchAll(PDO::FETCH_ASSOC);
