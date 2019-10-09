@@ -27,7 +27,7 @@ if(isset($_POST['add_user_form'])) {
                     if(addUser($login, $password, $rule)) {
                         $information = "New user added.";
                     } else {
-                        $information = "Error durîng user insertion.";
+                        $information = "Error during user insertion.";
                     }
                 } else {
                     $information = "The two passwords do not match.";

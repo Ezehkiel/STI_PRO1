@@ -67,7 +67,7 @@ if(isset($_POST['update_user_form'])) {
             if(updateUser($newPassword, $newIsAdmin, $newValidity, $id)) {
                 $information = "User updated.";
             } else {
-                $information = "Error durieng user update.";
+                $information = "Error during user update.";
             }
         }
     }
