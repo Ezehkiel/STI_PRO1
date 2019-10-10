@@ -6,7 +6,7 @@ function db_connect(){
     if ($myDb === null) {
 
         try {
-            $myDB = new PDO('sqlite:/usr/share/nginx/databases/sti_project1.sqlite');
+            $myDB = new PDO('sqlite:/usr/share/nginx/databases/sti_project.sqlite');
             $myDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (Exception $e) {
             die("Impossible d'ouvrir la base de donnée: " . $e->getMessage());
@@ -66,22 +66,22 @@ function checkLogin($username, $password){
 function checkIfValid($username) {
     static $req = null;
     if($req == null) {
-        $req = db_connect()->prepare('SELECT validite from users WHERE login = ?');
+        $req = db_connect()->prepare('SELECT isValid from users WHERE login = ?');
     }
     $req->execute(array($username));
     $data = $req->fetch(PDO::FETCH_ASSOC);
-    return $data['validite'] == 1;
+    return $data['isValid'] == 1;
 }
 
 function isAdmin($id){
 
     static $req = null;
     if($req == null){
-        $req = db_connect()->prepare('SELECT admin FROM users WHERE id_user = ?');
+        $req = db_connect()->prepare('SELECT isAdmin FROM users WHERE id_user = ?');
     }
     $req->execute(array($id));
     $data = $req->fetch(PDO::FETCH_ASSOC);
-    return $data['admin'] == "administrator";
+    return $data['isAdmin'] == "administrator";
 
 }
 
@@ -108,7 +108,7 @@ function addUser($login, $password, $rule) {
     static $req = null;
 
     if($req == null) {
-        $req = db_connect()->prepare('INSERT INTO users (login, password, admin) VALUES(?, ?, ?)');
+        $req = db_connect()->prepare('INSERT INTO users (login, password, isAdmin) VALUES(?, ?, ?)');
     }
     
     try {
@@ -139,7 +139,7 @@ function updateUser($password, $admin, $validity, $id) {
     static $req = null;
     
     if($req == null) {
-        $req = db_connect()->prepare('UPDATE users SET password = ?, admin = ?, validite = ? WHERE id_user = ?');
+        $req = db_connect()->prepare('UPDATE users SET password = ?, isAdmin = ?, isValid = ? WHERE id_user = ?');
     }
     
     try {
@@ -196,7 +196,7 @@ function addMessage($senderId, $recipientId, $object, $message){
     static $req = null;
 
     if($req == null){
-        $req = db_connect()->prepare('INSERT INTO messages (id_expediteur, id_destinataire, sujet, message) VALUES (?,?,?,?)');
+        $req = db_connect()->prepare('INSERT INTO messages (id_sender, id_recipient, object, message) VALUES (?,?,?,?)');
     }
     if (empty($senderId) || empty($recipientId) || empty($object) || empty($message)) {
         return false;
@@ -216,7 +216,7 @@ function getMessage($id){
 
     static $req = null;
     if($req == null) {
-        $req = db_connect()->prepare('SELECT id_message, id_expediteur, id_detinataire, sujet, message, lu, datetime(date_reception, "localtime") AS utc_date from messages WHERE id_message = ?');
+        $req = db_connect()->prepare('SELECT id_message, id_sender, id_recipient, object, message, read, date_receipt AS utc_date from messages WHERE id_message = ?');
     }
     $req->execute(array($id));
     return $req->fetch(PDO::FETCH_ASSOC);
@@ -227,7 +227,7 @@ function fetchMessage($id){
 
     static $req = null;
     if($req == null){
-        $req = db_connect()->prepare('SELECT id_message, id_expediteur, id_detinataire, sujet, message, lu, datetime(date_reception, "localtime") AS utc_date FROM messages WHERE id_destinataire = ? ORDER BY date_reception DESC');
+        $req = db_connect()->prepare('SELECT id_message, id_sender, id_recipient, object, message, read, date_receipt AS utc_date FROM messages WHERE id_recipient = ? ORDER BY date_receipt DESC');
     }
     $req->execute(array($id));
     return $req->fetchAll(PDO::FETCH_ASSOC);
@@ -258,7 +258,7 @@ function setStateMessage($id, $state){
     static $req = null;
     if ($req == null) {
         $req = db_connect()->prepare(
-            'UPDATE messages SET lu = ? WHERE id_message = ?'
+            'UPDATE messages SET read = ? WHERE id_message = ?'
         );
     }
 
@@ -280,7 +280,7 @@ function numberUnreadMessage($id){
 
     static $req = null;
     if($req == null){
-        $req = db_connect()->prepare('SELECT COUNT(*) as nb FROM messages WHERE id_destinataire = ? and lu = 0');
+        $req = db_connect()->prepare('SELECT COUNT(*) as nb FROM messages WHERE id_recipient = ? and read = 0');
     }
     $req->execute(array($id));
     $data = $req->fetch(PDO::FETCH_ASSOC);

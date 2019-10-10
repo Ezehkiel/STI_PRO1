@@ -53,9 +53,9 @@ if(isset($_GET['unread'])){
             <tbody>
             <?php
             foreach ($mails as $mail) {
-                echo '<tr' . ($mail['lu'] ? ' class="table-active"' : '') . '>';
-                echo '<td>' . getUsername($mail['id_expediteur']) . '</td>';
-                echo '<td>' . $mail['sujet'] . '</td>';
+                echo '<tr' . ($mail['read'] ? ' class="table-active"' : '') . '>';
+                echo '<td>' . getUsername($mail['id_sender']) . '</td>';
+                echo '<td>' . $mail['object'] . '</td>';
                 echo '<td>' . $mail['utc_date'] . '</td>';
                 echo '<td>
                         <a title="Reply" href="./newMessage.php?idMessage=' .$mail['id_message'] . '"><i class="fas fa-reply"></i></a> 

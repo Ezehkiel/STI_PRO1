@@ -17,7 +17,7 @@ if($user_info['admin'] == "administrator") {
     $checked_admin = "checked";
 }
 
-if($user_info['validite'] == 1) {
+if($user_info['isValid'] == 1) {
     $checked_valid = "checked";
 }
 

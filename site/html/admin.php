@@ -32,8 +32,8 @@ $users = getAllUsers(); //get all users in database
             foreach ($users as $user) {
                 echo '<tr>';
                 echo '<td>' . $user['login'] . '</td>';
-                echo '<td>' . $user['admin'] . '</td>';
-                echo '<td><i class="fas fa-' . ($user['validite'] ? 'check' : 'times') . '"></td>';
+                echo '<td>' . $user['isAdmin'] . '</td>';
+                echo '<td><i class="fas fa-' . ($user['isValid'] ? 'check' : 'times') . '"></td>';
 
                 // to avoid display actions buttons for connected user
                 if($user['id_user'] != $_SESSION['id']) {

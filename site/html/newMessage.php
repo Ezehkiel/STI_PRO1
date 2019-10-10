@@ -13,9 +13,9 @@ if(isset($_GET['idMessage'])){
 
 }
 
-if (isset($_POST['destinataire']) && isset($_POST['sujet']) && isset($_POST['message'])) {
-    if(!empty($_POST['destinataire']) && !empty($_POST['sujet']) && !empty($_POST['message'])){
-        if(!addMessage($_SESSION['id'], $_POST['destinataire'], $_POST['sujet'], $_POST['message'])){
+if (isset($_POST['destinataire']) && isset($_POST['object']) && isset($_POST['message'])) {
+    if(!empty($_POST['destinataire']) && !empty($_POST['object']) && !empty($_POST['message'])){
+        if(!addMessage($_SESSION['id'], $_POST['destinataire'], $_POST['object'], $_POST['message'])){
             $statusMessage = "<h4>An error occurred, your message can't be delivered</h4>";
         }else{
             $statusMessage = "<h4>Your message have been send</h4>";
@@ -37,7 +37,7 @@ if (isset($_POST['destinataire']) && isset($_POST['sujet']) && isset($_POST['mes
                     <?php
                     foreach ($users as $user){
                         $selected = false;
-                        if($user['id_user'] == $message['id_expediteur']){
+                        if($user['id_user'] == $message['id_sender']){
                             $selected = true;
                         }
                         echo '<option value="' . $user['id_user'] . '" '. ($selected ? 'selected' : '').'>'. $user['login'] . '</option>';
@@ -46,8 +46,8 @@ if (isset($_POST['destinataire']) && isset($_POST['sujet']) && isset($_POST['mes
                 </select>
             </div>
             <div class="form-group">
-                <label for="sujet">Objet</label>
-                <input type="text" class="form-control" id="sujet" name="sujet" value="<?= ($message ?  "RE: " .$message['sujet'] : "")  ?>">
+                <label for="object">Objet</label>
+                <input type="text" class="form-control" id="object" name="object" value="<?= ($message ?  "RE: " .$message['object'] : "")  ?>">
             </div>
             <div class="form-group">
                 <label for="message">Message</label>

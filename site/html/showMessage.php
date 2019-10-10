@@ -6,7 +6,7 @@ include ("databaseLib/requestsDatabase.php");
 if(isset($_GET['idMessage'])){
 
     $message = getMessage($_GET['idMessage']);
-    if($message['id_expediteur'] != $_SESSION['id'] && $message['id_destinataire'] != $_SESSION['id'] ){
+    if($message['id_sender'] != $_SESSION['id'] && $message['id_recipient'] != $_SESSION['id'] ){
         header('location: inbox.php');
     }
     setStateMessage($_GET['idMessage'], 1);
@@ -23,7 +23,7 @@ if(isset($_GET['idMessage'])){
                 <h3>Expeditor:</h3>
             </div>
             <div class="form-group col-3">
-                <?= getUsername($message['id_expediteur']) ?>
+                <?= getUsername($message['id_sender']) ?>
             </div>
         </div>
         <div class="row">
@@ -39,7 +39,7 @@ if(isset($_GET['idMessage'])){
                 <h3>Object:</h3>
             </div>
             <div class="form-group col-3">
-                <?= $message['sujet'] ?>
+                <?= $message['object'] ?>
             </div>
         </div>
 
