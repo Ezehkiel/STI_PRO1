@@ -191,19 +191,19 @@ function checkLoginAvailable($login) {
  * MESSAGE REQUESTS
  */
 
-function addMessage($senderId, $recipientId, $object, $message){
+function addMessage($date, $senderId, $recipientId, $object, $message){
 
     static $req = null;
 
     if($req == null){
-        $req = db_connect()->prepare('INSERT INTO messages (id_sender, id_recipient, object, message) VALUES (?,?,?,?)');
+        $req = db_connect()->prepare('INSERT INTO messages (date_receipt, id_sender, id_recipient, object, message) VALUES (?,?,?,?,?)');
     }
-    if (empty($senderId) || empty($recipientId) || empty($object) || empty($message)) {
+    if (empty($date) || empty($senderId) || empty($recipientId) || empty($object) || empty($message)) {
         return false;
     }
 
     try {
-        $req->execute([$senderId, $recipientId, $object, $message]);
+        $req->execute([$date, $senderId, $recipientId, $object, $message]);
     } catch (Exception $e) {
         return false;
     }
