@@ -66,6 +66,7 @@ if(isset($_POST['update_user_form'])) {
         if($execute_update) {
             if(updateUser($newPassword, $newIsAdmin, $newValidity, $id)) {
                 $information = "User updated.";
+                header("Refresh:1; url=admin.php");
             } else {
                 $information = "Error during user update.";
             }

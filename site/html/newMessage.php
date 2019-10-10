@@ -15,7 +15,7 @@ if(isset($_GET['idMessage'])){
 
 if (isset($_POST['destinataire']) && isset($_POST['object']) && isset($_POST['message'])) {
     if(!empty($_POST['destinataire']) && !empty($_POST['object']) && !empty($_POST['message'])){
-        if(!addMessage($_SESSION['id'], $_POST['destinataire'], $_POST['object'], $_POST['message'])){
+        if(!addMessage(date("Y-m-d H:i:s"), $_SESSION['id'], $_POST['destinataire'], $_POST['object'], $_POST['message'])){
             $statusMessage = "<h4>An error occurred, your message can't be delivered</h4>";
         }else{
             $statusMessage = "<h4>Your message have been send</h4>";
