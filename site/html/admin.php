@@ -53,7 +53,9 @@ $users = getAllUsers(); //get all users in database
     </div>
 </div>
 
-<?php 
+
+<?php
+//For each user we create a modal
     foreach ($users as $user) {
         ?>
         <div class="modal fade" id="user-modal-<?=$user['id_user'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

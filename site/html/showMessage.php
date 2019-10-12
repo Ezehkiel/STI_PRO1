@@ -3,12 +3,14 @@ include ("includes/head.php");
 include ("utility/utility.php");
 include ("databaseLib/requestsDatabase.php");
 
+// We get the id that we have to show
 if(isset($_GET['idMessage'])){
 
     $message = getMessage($_GET['idMessage']);
     if($message['id_sender'] != $_SESSION['id'] && $message['id_recipient'] != $_SESSION['id'] ){
         header('location: inbox.php');
     }
+    // We change the state to read
     setStateMessage($_GET['idMessage'], 1);
 }
 ?>

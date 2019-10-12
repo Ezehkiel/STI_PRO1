@@ -6,6 +6,7 @@ include ("databaseLib/requestsDatabase.php");
 $mails = fetchMessage($_SESSION['id']);
 $deleteOk = true;
 
+// If we ask for a delete, we get the id, delete the message and refresh the page
 if (isset($_GET['delete'])){
     $messageToDelete = htmlspecialchars($_GET['delete']);
     $deleteOk = deleteMessage($messageToDelete);
@@ -14,12 +15,14 @@ if (isset($_GET['delete'])){
         header("Refresh:0; url=inbox.php");
     }
 }
+// If we read a message we take the id and ask to the db to change the state
 if(isset($_GET['read'])){
     $messageToRead = htmlspecialchars($_GET['read']);
     setStateMessage($messageToRead, 1);
     header("Refresh:0; url=inbox.php");
 }
 
+// If we unread a message we take the id and ask to the db to change the state
 if(isset($_GET['unread'])){
     $messageToUnread = htmlspecialchars($_GET['unread']);
     setStateMessage($messageToUnread, 0);
@@ -52,6 +55,7 @@ if(isset($_GET['unread'])){
             </thead>
             <tbody>
             <?php
+            // Display all messages with action
             foreach ($mails as $mail) {
                 echo '<tr' . ($mail['read'] ? ' class="table-active"' : '') . '>';
                 echo '<td>' . getUsername($mail['id_sender']) . '</td>';

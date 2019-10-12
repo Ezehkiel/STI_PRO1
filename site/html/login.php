@@ -3,6 +3,7 @@ include ("databaseLib/requestsDatabase.php");
 include ("utility/utility.php");
 session_start();
 
+// We check if the user can login
 if (isset($_POST['password']) && isset($_POST['username']) ) {
     if ($_POST['password'] != "" && $_POST['username'] != "" && checkLogin( $_POST['username'], $_POST['password']) && checkIfValid($_POST['username'])) {
         $_SESSION['connecte'] = true;
@@ -11,6 +12,7 @@ if (isset($_POST['password']) && isset($_POST['username']) ) {
         $_SESSION['isAdmin'] = isAdmin($_SESSION['id']);
     } else {
         $error = true;
+        //TODO Afficher l'erreur
     }
 
 }
