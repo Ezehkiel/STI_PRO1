@@ -1,4 +1,8 @@
 <?php
+/**
+ * This is the header, he is included in all pages to have
+ * the same header and to change it once if needed
+ */
 session_start();
 date_default_timezone_set("Europe/Paris");
 if (!isset($_SESSION['id'])){

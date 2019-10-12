@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @return PDO return the connection on the database
+ */
 function db_connect(){
     static $myDb = null;
 
@@ -20,6 +23,11 @@ function db_connect(){
 /**
  * USERS REQUESTS
  */
+
+/**
+ * Fetch all users
+ * @return array with all users
+ */
 function getAllUsers(){
 
     static $req = null;
@@ -32,6 +40,11 @@ function getAllUsers(){
     return $req->fetchAll(PDO::FETCH_ASSOC);
 }
 
+/**
+ * Get the id of a user with his username
+ * @param $username of the user
+ * @return mixed the id
+ */
 function getId($username){
     static $req = null;
     if($req == null) {
@@ -42,6 +55,11 @@ function getId($username){
     return $data['id_user'];
 }
 
+/**
+ * Get the user of a user
+ * @param $id of the user
+ * @return mixed the username linked to the id
+ */
 function getUsername($id){
     static $req = null;
     if($req == null) {
@@ -52,6 +70,12 @@ function getUsername($id){
     return $data['login'];
 }
 
+/**
+ * We test if the password given is equals to the one in the database
+ * @param $username of the user
+ * @param $password of the user
+ * @return bool true if the password given match
+ */
 function checkLogin($username, $password){
     static $req = null;
     if($req == null) {
@@ -63,6 +87,11 @@ function checkLogin($username, $password){
     return $data['password'] == $password;
 }
 
+/**
+ * We check if the user is valid
+ * @param $username the username of the user
+ * @return bool true is the user is valid
+ */
 function checkIfValid($username) {
     static $req = null;
     if($req == null) {
@@ -73,6 +102,11 @@ function checkIfValid($username) {
     return $data['isValid'] == 1;
 }
 
+/**
+ * We check if the user is an administrator
+ * @param $id of the user
+ * @return bool true if the user is an admin
+ */
 function isAdmin($id){
 
     static $req = null;
@@ -85,6 +119,11 @@ function isAdmin($id){
 
 }
 
+/**
+ * Delete a user
+ * @param $id of the user that we want to delete
+ * @return bool true if the delete goes well
+ */
 function deleteUser($id){
 
     static $req = null;
@@ -97,13 +136,19 @@ function deleteUser($id){
     try {
         $req->execute([$id]);
     } catch (Exception $e) {
-        //return false;
-        echo $e->getMessage();
+        return false;
     }
 
     return true;
 }
 
+/**
+ * We add a user
+ * @param $login the login of the user
+ * @param $password the password of the user
+ * @param $rule the role of the user
+ * @return bool true if the user is added
+ */
 function addUser($login, $password, $rule) {
     static $req = null;
 
@@ -120,6 +165,11 @@ function addUser($login, $password, $rule) {
     return true;
 }
 
+/**
+ * Get a user
+ * @param $id the id of the user
+ * @return mixed the user with all his info
+ */
 function getUser($id) {
     static $req = null;
     if($req == null){
@@ -128,13 +178,20 @@ function getUser($id) {
 
     try {
         $req->execute(array($id));
-        $data = $req->fetch(PDO::FETCH_ASSOC);
-        return $data;
+        return $req->fetch(PDO::FETCH_ASSOC);
     } catch(Exception $e) {
         echo $e->getMessage();
     }
 }
 
+/**
+ * Update a user
+ * @param $password new password
+ * @param $admin is the user an administrator
+ * @param $validity is the user valid
+ * @param $id the id of the user
+ * @return bool true if the update goes well
+ */
 function updateUser($password, $admin, $validity, $id) {
     static $req = null;
     
@@ -151,6 +208,12 @@ function updateUser($password, $admin, $validity, $id) {
     return true;
 }
 
+/**
+ * Change the password of a user
+ * @param $id of the user
+ * @param $newPassword the new password
+ * @return bool true if the update goes well
+ */
 function updatePassword($id, $newPassword) {
     static $req = null;
     
@@ -167,6 +230,11 @@ function updatePassword($id, $newPassword) {
     return true;
 }
 
+/**
+ * We check if a login is free of not
+ * @param $login the login to test
+ * @return bool true if the login is available
+ */
 function checkLoginAvailable($login) {
     static $req = null;
     if($req == null){
@@ -191,6 +259,15 @@ function checkLoginAvailable($login) {
  * MESSAGE REQUESTS
  */
 
+/**
+ * WE add a new message in the database
+ * @param $date the date of the message
+ * @param $senderId id of the sender
+ * @param $recipientId if of the recipient
+ * @param $object the obect of the message
+ * @param $message the message
+ * @return bool true if the insert goes well
+ */
 function addMessage($date, $senderId, $recipientId, $object, $message){
 
     static $req = null;
@@ -212,6 +289,11 @@ function addMessage($date, $senderId, $recipientId, $object, $message){
 
 }
 
+/**
+ * We fetch one message with his id
+ * @param $id if the message
+ * @return mixed the message link by the id
+ */
 function getMessage($id){
 
     static $req = null;
@@ -223,6 +305,11 @@ function getMessage($id){
 
 }
 
+/**
+ * Get all messages
+ * @param $id of the user that is the recipient
+ * @return array with all the messages
+ */
 function fetchMessage($id){
 
     static $req = null;
@@ -234,6 +321,11 @@ function fetchMessage($id){
 
 }
 
+/**
+ * Delete a message
+ * @param $id of the message to delete
+ * @return bool true if the delete goes well
+ */
 function deleteMessage($id){
 
     static $req = null;
@@ -253,6 +345,13 @@ function deleteMessage($id){
 
 }
 
+/**
+ * We set if the message is read od unread. If the state is 1 the message will be read and if
+ * the state is 0 the message will be unread
+ * @param $id the id of the message
+ * @param $state
+ * @return bool true if the update goes well
+ */
 function setStateMessage($id, $state){
 
     static $req = null;
@@ -276,6 +375,11 @@ function setStateMessage($id, $state){
     return true;
 }
 
+/**
+ * Give the number of messages unread
+ * @param $id of the user that is recipient
+ * @return mixed
+ */
 function numberUnreadMessage($id){
 
     static $req = null;
